@@ -17,11 +17,12 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class BlockPokemonHouseCorner extends BlockBase
-{
-	
-	 public static final PropertyDirection FACING = BlockHorizontal.FACING;
-	public static final AxisAlignedBB POKEMON_HOUSE_CORNER_AABB = new AxisAlignedBB(0.25, 0, 0, 1, 1, 0.75);
+public class BlockPokemonHouseCorner extends BlockBase {
+	public static final PropertyDirection FACING = BlockHorizontal.FACING;
+	public static final AxisAlignedBB POKEMON_HOUSE_CORNER_AABB_NORTH = new AxisAlignedBB(0.25, 0, 0, 1, 1, 0.75);
+	public static final AxisAlignedBB POKEMON_HOUSE_CORNER_AABB_EAST = new AxisAlignedBB(0.25, 0, 0.25, 1, 1, 1);
+	public static final AxisAlignedBB POKEMON_HOUSE_CORNER_AABB_SOUTH = new AxisAlignedBB(0, 0, 0.25, 0.75, 1, 1);
+	public static final AxisAlignedBB POKEMON_HOUSE_CORNER_AABB_WEST = new AxisAlignedBB(0, 0, 0, 0.75, 1, 0.75);
 
 	public BlockPokemonHouseCorner(String name)
 	{
@@ -30,17 +31,17 @@ public class BlockPokemonHouseCorner extends BlockBase
 	
 	protected BlockStateContainer createBlockState()
     {
-        return new BlockStateContainer(this, new IProperty[] {FACING});
+        return new BlockStateContainer(this, FACING);
     }
 	
 	public IBlockState withRotation(IBlockState state, Rotation rot)
 	    {
-	        return state.withProperty(FACING, rot.rotate((EnumFacing)state.getValue(FACING)));
+	        return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
 	    }
 	
 	public IBlockState withMirror(IBlockState state, Mirror mirrorIn)
     {
-        return state.withRotation(mirrorIn.toRotation((EnumFacing)state.getValue(FACING)));
+        return state.withRotation(mirrorIn.toRotation(state.getValue(FACING)));
     }
 	
 	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
@@ -51,7 +52,7 @@ public class BlockPokemonHouseCorner extends BlockBase
 	public int getMetaFromState(IBlockState state)
     {
         int i = 0;
-        i = i | ((EnumFacing)state.getValue(FACING)).getHorizontalIndex();
+        i = i | state.getValue(FACING).getHorizontalIndex();
         return i;
     }
 	
@@ -80,7 +81,13 @@ public class BlockPokemonHouseCorner extends BlockBase
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
 	{
-		return POKEMON_HOUSE_CORNER_AABB;
+		switch (state.getValue(FACING)) {
+			case NORTH: return POKEMON_HOUSE_CORNER_AABB_NORTH;
+			case EAST: return POKEMON_HOUSE_CORNER_AABB_EAST;
+			case SOUTH: return POKEMON_HOUSE_CORNER_AABB_SOUTH;
+			case WEST: return POKEMON_HOUSE_CORNER_AABB_WEST;
+			default: return POKEMON_HOUSE_CORNER_AABB_NORTH;
+		}
 	}
 	
 	public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face)
