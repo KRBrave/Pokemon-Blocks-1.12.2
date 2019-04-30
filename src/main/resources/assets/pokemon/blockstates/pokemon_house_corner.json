@@ -1,0 +1,10 @@
+{
+    "variants": {
+        "normal": {"model":"pokemon:pokemon_house_corner"},
+        "facing=north": { "model": "pokemon:pokemon_house_corner" },
+        "facing=east":  { "model": "pokemon:pokemon_house_corner", "y": 90 },
+        "facing=south": { "model": "pokemon:pokemon_house_corner", "y": 180 },
+        "facing=west":  { "model": "pokemon:pokemon_house_corner", "y": 270 }
+        
+    }
+}

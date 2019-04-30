@@ -1,6 +1,0 @@
-{
-    "parent": "block/cube_all",
-    "textures": {
-        "all": "pokemon:block/pokemon_water_corner_two"
-    }
-}

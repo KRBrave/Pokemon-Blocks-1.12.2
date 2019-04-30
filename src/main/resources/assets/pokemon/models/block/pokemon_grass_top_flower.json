@@ -1,0 +1,6 @@
+{
+    "parent": "block/cube_all",
+    "textures": {
+        "all": "pokemon:block/pokemon_grass_top_flower"
+    }
+}

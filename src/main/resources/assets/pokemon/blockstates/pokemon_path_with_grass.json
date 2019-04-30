@@ -1,0 +1,5 @@
+{
+    "variants":{
+    "normal": {"model":"pokemon:pokemon_path_with_grass"}
+  }
+ }
